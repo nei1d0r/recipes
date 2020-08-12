@@ -47,3 +47,5 @@ $env:GOOGLE_APPLICATION_CREDENTIALS="[PATH]"
     WHY AM I USING THEM...? Instead of adding complexity to the application through using a key value storage solution, it was simpler to store the token as a cookie. In 'real life' i would use Redis or something similar.
 
     it's http only i guess, so it could be worse.
+    for setting cookies for firebase (because i lost a lot of time fixing this!)
+    https://stackoverflow.com/questions/44929653/firebase-cloud-function-wont-store-cookie-named-other-than-session/44935288

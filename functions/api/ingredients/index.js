@@ -1,8 +1,12 @@
 const express = require("express")
 const ImageModel = require('../../models/ingredients')
+const engines = require('consolidate')
 
 const admin = require("firebase-admin")
 const app = express()
+
+app.engine('hbs', engines.handlebars)
+app.set('views','./views')
 
 app.get("/", async (req, res) => {
   const snapshot = await admin.firestore().collection("ingredients").get()
@@ -12,7 +16,9 @@ app.get("/", async (req, res) => {
     let data = doc.data()
     ingredients.push({ id, ...data })
   })
-  res.status(200).json(ingredients)
+  console.log(ingredients)
+  res.render('./pages/ingredients/index.hbs', { heading: 'Ingredients', ingredients: ingredients }) // TESTING
+  // res.status(200).json(ingredients)
 })
 
 app.get("/:id", async (req, res) => {

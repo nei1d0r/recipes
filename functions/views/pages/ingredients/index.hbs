@@ -1,0 +1,17 @@
+<html>
+    <body>
+      {{> /includes/header }}
+      <h1>{{heading}}</h1>
+
+        {{#each ingredients}}
+          <div>
+            {{this.name}}
+            {{this.quantity}}
+            {{this.type}}
+            {{this.dateAdded}}
+          </div>
+        {{/each}}
+
+  
+    </body>
+</html>

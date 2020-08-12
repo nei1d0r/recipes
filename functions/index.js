@@ -2,7 +2,7 @@ const functions = require('firebase-functions')
 const express = require('express')
 const bodyParser = require('body-parser')
 const engines = require('consolidate')
-var hbs = require('handlebars')
+var hbs = require('express')
 const admin = require('firebase-admin')
 const app = express()
 
@@ -13,7 +13,9 @@ const { authJWT } = require('./api/authentication')
 app.engine('hbs', engines.handlebars)
 app.set('views','./views')
 app.set('view engine','hbs')
-
+console.log(__dirname)
+// hbs.registerPartials(__dirname + "/views/partials/includes"); // Place `hbs.registerPartials` in here!
+app.set('etag', false); // turn off
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/api', routes)
 app.use(cors())
@@ -24,6 +26,7 @@ const utils = require('./models/utils')
 // admin.initializeApp(functions.config().firebase) // prod
 
 var serviceAccount = require("../firebaseService.json") // dev
+const { request } = require('express')
 admin.initializeApp({
 credential: admin.credential.cert(serviceAccount),
 databaseURL: "https://raspi-8c114.firebaseio.com"
