@@ -1,0 +1,23 @@
+extends ../partials/layouts/layout
+
+block content  
+  h1 Login
+  if message
+  h2= message
+  div
+    form(action='../api/users/login',method='post')
+      div(data-role='fieldcontain')
+        fieldset(data-role='controlgroup')
+          label(for='email') email
+            input(id='email',type='text',value='',placeholder='@',name='email')
+      div#passworddiv(data-role='fieldcontain')
+        fieldset(data-role='controlgroup')
+          label(for='password') password
+            input(id='password',type='password',value='',placeholder='',name='password')
+      div(data-role='fieldcontain')   
+        input(type='submit',value='Sign Up')
+
+
+    p
+    | Don't have an account?
+    a(href="./signup") Sign up now

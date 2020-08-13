@@ -1,12 +1,13 @@
-const express = require("express")
-const ImageModel = require('../../models/ingredients')
-const engines = require('consolidate')
-
 const admin = require("firebase-admin")
+const express = require("express")
 const app = express()
+const path = require('path')
 
-app.engine('hbs', engines.handlebars)
-app.set('views','./views')
+app.set('view engine', 'pug')
+app.use(express.static('public'));
+
+const ImageModel = require('../../models/ingredients')
+
 
 app.get("/", async (req, res) => {
   const snapshot = await admin.firestore().collection("ingredients").get()
@@ -17,8 +18,13 @@ app.get("/", async (req, res) => {
     ingredients.push({ id, ...data })
   })
   console.log(ingredients)
-  res.render('./pages/ingredients/index.hbs', { heading: 'Ingredients', ingredients: ingredients }) // TESTING
+  res.render('./pages/ingredients/index', { heading: 'Ingredients', ingredients: ingredients }) // TESTING
   // res.status(200).json(ingredients)
+})
+
+app.get("/add", async (req, res) => {
+  res.render('./pages/ingredients/add-ingredients')
+
 })
 
 app.get("/:id", async (req, res) => {
@@ -28,13 +34,17 @@ app.get("/:id", async (req, res) => {
     res.status(200).json({id: ingredientId, ...ingredientData })
 })
 
+// Function called in script.js
 app.post("/identify-food", async (req, res) => {
   const { image } = req.body
+  console.log(req.body)
   
   if (!image) res.send('No image attached')
   
   const labelledFoodItem = await ImageModel.identifyFoodItem(image) // enable these to turn on image recognition
-  
+  //IT WORKS!!!
+  console.log('===>', labelledFoodItem)
+
   res.status(200).json(labelledFoodItem)
 })
 

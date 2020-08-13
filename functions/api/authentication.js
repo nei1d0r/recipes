@@ -3,7 +3,7 @@ const { secret } = require('../config.json')
 const Auth = {}
 
 Auth.authJWT = (req, res, next) => {
-    console.log(req)
+    console.log(req.headers)
     if (req.headers.cookie === undefined) return res.redirect('/login', 307)
     
     const token = req.headers.cookie.split('=')[1]
@@ -16,7 +16,7 @@ Auth.authJWT = (req, res, next) => {
             }
 
             req.user = user
-            res.locals.user = {...user, token}
+            res.locals.user = { ...user, token }
             next()
         })
     } else {

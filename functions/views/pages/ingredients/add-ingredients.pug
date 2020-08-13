@@ -1,0 +1,15 @@
+extends ../../partials/layouts/layout
+
+block content  
+  h1 Logout
+  if message
+  h2= message
+  div
+    form(id='form')
+      label(for='file') Image
+      input(id='file',type='file',value='',placeholder='', name='file' accept="image/*")
+      input(id="convertAndUpload" type='submit',value='Identify')
+
+    p
+    | Don't have an account?
+    a(href="./signup") Sign up now

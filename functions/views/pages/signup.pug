@@ -1,0 +1,21 @@
+extends ../partials/layouts/layout
+
+block content  
+  h1= heading
+
+  div
+    form(action='../api/users', method='post')
+      div
+          label(for='email') email
+            input(id='email',type='text',value='',placeholder='@',name='email')
+      div
+          label(for='password') password
+            input(id='password',type='password',value='',placeholder='',name='password')
+      div
+          label(for='password2') password
+            input(id='password2',type='password',value='',placeholder='',name='password2')   
+      input(type='submit',value='Sign Up')
+      if error
+      p= error
+    | Already have an account?
+    a(href="./signup") Log in

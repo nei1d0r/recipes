@@ -49,3 +49,8 @@ $env:GOOGLE_APPLICATION_CREDENTIALS="[PATH]"
     it's http only i guess, so it could be worse.
     for setting cookies for firebase (because i lost a lot of time fixing this!)
     https://stackoverflow.com/questions/44929653/firebase-cloud-function-wont-store-cookie-named-other-than-session/44935288
+
+// Templating engine
+    Tried handlebars, did not work well... 
+    tried Pug, integrated into app well!!!
+    documentation for pug: https://pugjs.org/language/iteration.html

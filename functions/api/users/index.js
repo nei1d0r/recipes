@@ -1,20 +1,16 @@
-// const functions = require("firebase-functions")
+const admin = require("firebase-admin")
 const express = require("express")
 const app = express()
 var cookieParser = require('cookie-parser')
-const { secret } = require('../../config.json')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+
 const { authJWT } = require('../authentication')
+const { secret } = require('../../config.json')
 
-const admin = require("firebase-admin")
+app.set('view engine', 'pug')
+app.use(cookieParser())
 
-// app.use(cookieParser())
-
-// // NEED CORS FOR EXTERNAL APPLICATION - CREATE WHITELIST FOR PRODUCTION
-// const cors = require('cors')
-// app.use(cors())
-// app.options('*', cors())
 
 app.get("/", authJWT, async (req, res) => {
   const snapshot = await admin.firestore().collection("users").get()
@@ -37,13 +33,14 @@ app.get("/:id", async (req, res) => {
 // To create a user
 app.post("/", async (req, res) => {
   const { password, password2, email } = req.body
+
   // check req body contains correct properties
-  if (!email || !password || !password2) res.status(400).json({ error: 'Please provide all required fields' })
+  if (!email || !password || !password2) res.render('./pages/signup', { error: 'Please provide all required fields' })
   
   // check email is unique and that passwords match
   const userCheck = await admin.firestore().collection('users').where('email', '==', email).get()
-  if (!userCheck.empty) res.status(400).json({ error: 'email address already taken' })
-  if (password !== password2) return res.status(400).json({ error: 'passwords do not match' })
+  if (!userCheck.empty) res.render('./pages/signup', { error: 'Email address already in use' })
+  if (password !== password2) res.render('./pages/signup', { error: 'Passwords do not match' })
   
   // hash password before storing to database
   const user = await bcrypt.hash(password, 2)
@@ -56,13 +53,13 @@ app.post("/", async (req, res) => {
   })
 
   await admin.firestore().collection("users").add(user)
-  return res.status(201).json({ message: 'success' })
+  return res.render('./pages/login', { message: 'Successfully signed up, please log in' })
 })
 
 
 app.post("/login", async (req, res) => {
   const { password, email } = req.body
-
+  console.log(req.body)
   // check user exists in database
   let user = []
   await admin.firestore().collection('users').where('email', '==', email).get()
@@ -73,20 +70,14 @@ app.post("/login", async (req, res) => {
     })
   })
 
-  if (user.length < 1) res.status(400).json({ error: 'Your username or password are incorrect, or you may need to sign up' })
+  if (user.length < 1) res.render('./pages/signup', { error: 'Your username or password are not recognised' })
 
   // Compare used to negate unhashing of passwords in API
   const passwordMatch = await bcrypt.compare(password, user.password)
-  if (!passwordMatch) res.status(400).json({ error: 'Your username or password are incorrect' })
+  if (!passwordMatch) res.render('./pages/signup', { error: 'Your username or password are not recognised' })
 
   // set JWT or Cookie??
-  const token = jwt.sign({ sub: user.id }, secret, { expiresIn: '15m' })
-  const omitPassword = (user, token) => {
-    const { password, ...userWithoutPassword } = user;
-    return {...userWithoutPassword, token};
-  }
-
-  const authenticatedUser = omitPassword(user, token)
+  const token = jwt.sign({ sub: user.id, email: user.email }, secret, { expiresIn: '15m' })
 
   // THIS IS A BAD EXAMPLE OF STORING A JWT!! I WOULDN'T DO THIS IN PRODUCTION
   res.cookie('__session', token, { expires: new Date(Date.now() + 900000), httpOnly: true })
