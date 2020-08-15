@@ -17,7 +17,6 @@ app.get("/", async (req, res) => {
     let data = doc.data()
     ingredients.push({ id, ...data })
   })
-  console.log(ingredients)
   res.render('./pages/ingredients/index', { heading: 'Ingredients', ingredients: ingredients }) // TESTING
   // res.status(200).json(ingredients)
 })
@@ -37,21 +36,19 @@ app.get("/:id", async (req, res) => {
 // Function called in script.js
 app.post("/identify-food", async (req, res) => {
   const { image } = req.body
-  console.log(req.body)
   
   if (!image) res.send('No image attached')
   
   const labelledFoodItem = await ImageModel.identifyFoodItem(image) // enable these to turn on image recognition
-  //IT WORKS!!!
-  console.log('===>', labelledFoodItem)
 
   res.status(200).json(labelledFoodItem)
 })
 
 app.post("/", async (req, res) => {
   const ingredient = req.body
+  console.log(ingredient)
   await admin.firestore().collection("ingredients").add(ingredient)
-  res.status(201).json({})
+  res.redirect('./ingredients', 201, 'GET')
 })
 
 app.put("/:id", async (req, res) => {

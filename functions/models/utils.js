@@ -12,11 +12,10 @@ const printHello = () => {
 // todo - better logging https://itnext.io/setup-logger-for-node-express-app-9ef4e8f73dac
 const logger = (userAgent) => {
     let fs = require('fs')        
-    let newLog=`${new Date()},${userAgent}\r`;
+    let newLog=`${new Date()},${userAgent}\r`
 
     fs.appendFile("file.csv", newLog, function(err){
-            if(err) throw err;
-            console.log('new log record added')
+            if(err) throw err
         }
     )
 }

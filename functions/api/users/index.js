@@ -59,7 +59,6 @@ app.post("/", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   const { password, email } = req.body
-  console.log(req.body)
   // check user exists in database
   let user = []
   await admin.firestore().collection('users').where('email', '==', email).get()

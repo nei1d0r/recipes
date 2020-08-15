@@ -26,14 +26,14 @@ app.use('/api', routes)
 
 const utils = require('./models/utils')
 
-admin.initializeApp(functions.config().firebase) // prod
+// admin.initializeApp(functions.config().firebase) // prod
 
-// var serviceAccount = require("../firebaseService.json") // dev
-// const { request } = require('express')
-// admin.initializeApp({
-// credential: admin.credential.cert(serviceAccount),
-// databaseURL: "https://raspi-8c114.firebaseio.com"
-// })
+var serviceAccount = require("../firebaseService.json") // dev
+const { request } = require('express')
+admin.initializeApp({
+credential: admin.credential.cert(serviceAccount),
+databaseURL: "https://raspi-8c114.firebaseio.com"
+})
 
 // initialize db
 getFirestore = async () => {
