@@ -2,6 +2,11 @@ extends partials/layouts/layout
 
 block content
   if user
-  h2= user.email
-  h1 Neildor's Server
-  h2= time
+  h2(class='has-text-centered is-size-5')= user.email
+  div(class='container-fluid has-text-centered')
+    div(class='mainMenuDiv'  href='')
+      h2(class='is-size-3') Add ingredients
+      img(class='menuIcon' src='https://cdn4.iconfinder.com/data/icons/food-43/709/food_fruit_kitchen_healthy_vegetable_buy_shop_cart-512.png')
+    div(class='mainMenuDiv' href='')
+      h2(class='is-size-3') Find Recipes
+      img(class='menuIcon' src='https://cdn0.iconfinder.com/data/icons/kitchen-items-5/614/4826_-_Add_Salt-512.png')

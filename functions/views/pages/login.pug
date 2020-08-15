@@ -1,23 +1,29 @@
 extends ../partials/layouts/layout
 
 block content  
-  h1 Login
-  if message
-  h2= message
-  div
-    form(action='../api/users/login',method='post')
-      div(data-role='fieldcontain')
-        fieldset(data-role='controlgroup')
-          label(for='email') email
-            input(id='email',type='text',value='',placeholder='@',name='email')
-      div#passworddiv(data-role='fieldcontain')
-        fieldset(data-role='controlgroup')
-          label(for='password') password
-            input(id='password',type='password',value='',placeholder='',name='password')
-      div(data-role='fieldcontain')   
-        input(type='submit',value='Sign Up')
+  div(class='container' style='margin-top: 5rem')  
+    div(class='container')
+      h1(class='title has-text-centered') Login
+      if message
+        h2= message
+  div(class='loginForm container')
+    form(action='../api/users/login' method='post' class='formBody labelGroup has-text-centered')
 
+      div(class="field")
+        p(class="control has-icons-left has-icons-right")
+          input(class="input" id='email' type='text' value='' placeholder='@email' name='email')
 
-    p
-    | Don't have an account?
-    a(href="./signup") Sign up now
+      div(class="field")
+        p(class="control has-icons-left")
+          input(class="input" id='password' type='password' value='' placeholder='password' name='password')
+      
+      if error
+          p(class='has-text-centered has-text-danger')= error
+
+      div(class="field")
+        p(class="control has-text-centered")
+          button(class="button is-success" type='submit',value='Sign Up') Login
+
+      div(class='container has-text-centered')
+        p(class='') Don't have an account?  
+        a(href="/signup" class='has-text-centered') Sign up now

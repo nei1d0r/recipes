@@ -1,6 +1,8 @@
 window.onload = async () => {
     // set file upload event from DOM
-    document.getElementById('file').addEventListener('change', async (e) => {
+    // quick check to see if we need to load script
+    !!!document.getElementById('file') ? console.log('Not ingredients') 
+    : document.getElementById('file').addEventListener('change', async (e) => {
         const file = event.srcElement.files[0]
         // Convert file to base64 in order to send to server for labelling
         const fileToBase64 = async (file) =>
@@ -28,12 +30,16 @@ window.onload = async () => {
             })
 
         await fileToBase64(file).then((labels) => {
-            const labelDiv = document.getElementById('foodLabels')
+            let labelDiv = document.getElementById('foodLabels')
+            labelDiv.setAttribute('class', 'labelDiv')
 
-                // TODO - if labelDiv then remove it, otherwise we get duplicate forms when changing image
-
+                // TODO - overwrites the existing form when image is changed
+                while (labelDiv.firstChild) {
+                    labelDiv.removeChild(labelDiv.firstChild);
+                }
                 // make form element
                 const form = document.createElement('form')
+                form.setAttribute('class','formBody container')
                 form.setAttribute('id', 'labelForm')
                 form.setAttribute('name', 'form')
                 form.setAttribute('method', 'POST')
@@ -41,21 +47,35 @@ window.onload = async () => {
 
                     //  Make first div    
                     const ingredientDiv = document.createElement('div')
-                    ingredientDiv.setAttribute('class','form-group')
+                    ingredientDiv.setAttribute('class','labelGroup form-group')
                     labels.forEach(ingredient => {                
                         //  Make label
                         const label = document.createElement('label')
+                            label.setAttribute('class','foodLabel button is-variable')
                             label.setAttribute('for', ingredient)
-                            label.setAttribute('class','col-sm-3 control-label input-sm')
                             label.innerHTML += ingredient
+
+                            label.addEventListener('click', (event) => {
+                                const radioLabels = event.target.parentElement.querySelectorAll('label')
+                                
+                                radioLabels.forEach((button) => {
+                                    button.classList.remove('is-focused')
+                                    button.classList.remove('is-success')
+                                    button.classList.add('is-outline')
+                                })
+                                // change class to focused
+                                event.target.setAttribute('class', 'foodLabel button is-focused is-success')
+                            })
                     
                         //  Make input
                         const input = document.createElement('input')
                             input.setAttribute('id', ingredient)
+                            input.setAttribute('value', ingredient)
                             input.setAttribute('type', 'radio')
                             input.setAttribute('name', 'label')
-                            input.setAttribute('class', 'form-control input-sm')
                             input.setAttribute('required','required')
+
+                        input.style.display = 'none'
                         
                         //  Attach elements
                         ingredientDiv.appendChild(input)
@@ -63,13 +83,15 @@ window.onload = async () => {
                     })
                     // EXPIRY DATE---------------------------------------------
                     const expiryDiv = document.createElement('div')
+                    expiryDiv.setAttribute('class', 'field')
 
                     const dateLabel = document.createElement('label')
+                    dateLabel.setAttribute('class','label')
                     dateLabel.setAttribute('for','expiryDate')
-                    dateLabel.setAttribute('class','col-sm-3 control-label input-sm')
                     dateLabel.innerHTML += 'Expiry Date'
 
                     const dateInput = document.createElement('input')
+                    dateInput.setAttribute('class','input is-medium')
                     dateInput.setAttribute('type', 'date')
                     dateInput.setAttribute('id', 'expiryDate')
                     dateInput.setAttribute('name', 'expiryDate')
@@ -80,12 +102,15 @@ window.onload = async () => {
                     const QuantityDiv = document.createElement('div')
 
                     const QuantityLabel = document.createElement('label')
+                    QuantityLabel.setAttribute('class','label')
                     QuantityLabel.setAttribute('for','quantity')
-                    QuantityLabel.setAttribute('class','col-sm-3 control-label input-sm')
                     QuantityLabel.innerHTML += 'Quantity'
 
                     const QuantityInput = document.createElement('input')
                     QuantityInput.setAttribute('type', 'number')
+                    QuantityInput.setAttribute('min', '1')
+                    QuantityInput.setAttribute('max', '10')
+                    QuantityInput.setAttribute('class','input is-medium')
                     QuantityInput.setAttribute('id', 'quantity')
                     QuantityInput.setAttribute('name', 'quantity')
                     // SET MIN MAX VALUES
@@ -97,18 +122,18 @@ window.onload = async () => {
                     const storageOptions = ['Fridge', 'Freezer', 'Cupboard']
 
                     const storageLabel = document.createElement('label')
+                    storageLabel.setAttribute('class','label')
                     storageLabel.setAttribute('for','storageList')
-                    storageLabel.setAttribute('class','col-sm-3 control-label input-sm')
                     storageLabel.innerHTML += 'Storage Location'
 
                     const storageList = document.createElement('input')
                     storageList.setAttribute('id', 'storageList')
+                    storageList.setAttribute('class','input is-medium')
+                    storageList.setAttribute('name', 'location')
                     storageList.setAttribute('list', 'location')
 
                         const dataList = document.createElement('datalist')
                         dataList.setAttribute('id','location')
-                        dataList.setAttribute('class','col-sm-3 control-label input-sm')
-                        dataList.innerHTML += 'Storage Location'  
 
                         storageList.appendChild(dataList)
 
@@ -121,14 +146,15 @@ window.onload = async () => {
                     locationDiv.appendChild(storageLabel)
                     locationDiv.appendChild(storageList)
 
-                    // QUANTITY ---------------------------------------------
+                    // SUBMIT BUTTON ---------------------------------------------
                     const submitDiv = document.createElement('div')
-
-                    // QuantityLabel.innerHTML += 'Quantity'
+                    submitDiv.setAttribute('class', 'button medium')
 
                     const submitButton = document.createElement('input')
+                    submitButton.setAttribute('class','submitItem button is-medium is-fullwidth is-success is-light')
                     submitButton.setAttribute('type', 'submit')
                     submitButton.setAttribute('id', 'submit')
+                    submitButton.setAttribute('value', 'Add Item to Inventory')
                     
                     submitDiv.appendChild(submitButton)
                 
@@ -137,7 +163,7 @@ window.onload = async () => {
                 form.appendChild(expiryDiv)
                 form.appendChild(QuantityDiv)
                 form.appendChild(locationDiv)
-                form.appendChild(submitDiv)
+                form.appendChild(submitButton)
 
                 // TODO - CURRENTLY RETURNING... { label: 'on', expiryDate: '2020-08-22', quantity: '1' }
 

@@ -1,4 +1,3 @@
-const express = require('express')
 // This will contain helper functions for models
 
 const getCurrentTime = () => {

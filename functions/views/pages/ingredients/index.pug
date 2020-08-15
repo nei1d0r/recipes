@@ -2,11 +2,11 @@ extends ../../partials/layouts/layout
 
 block content
   h1= heading
-  a(href='./ingredients/add') Add Ingredients
+  a(href='./add') Add Ingredients
   div
     each val in ingredients
-      p= val.name
+      p= val.label
       p= val.quantity
-      p= val.type
-      p= val.dateAdded
+      p= val.location
+      p(class=val.expiringSoon)= val.expiryDate
 

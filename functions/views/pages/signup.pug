@@ -1,21 +1,32 @@
 extends ../partials/layouts/layout
 
 block content  
-  h1= heading
+  div(class='container-fluid' style='margin-top: 5rem;')
+    div(class='container')
+      h1(class='title has-text-centered') Sign Up
+    div(class='loginForm container')
+      form(action='../api/users' method='post' class='formBody labelGroup has-text-centered')
 
-  div
-    form(action='../api/users', method='post')
-      div
-          label(for='email') email
-            input(id='email',type='text',value='',placeholder='@',name='email')
-      div
-          label(for='password') password
-            input(id='password',type='password',value='',placeholder='',name='password')
-      div
-          label(for='password2') password
-            input(id='password2',type='password',value='',placeholder='',name='password2')   
-      input(type='submit',value='Sign Up')
-      if error
-      p= error
-    | Already have an account?
-    a(href="./signup") Log in
+        div(class="field")
+          p(class="control has-icons-left has-icons-right")
+            input(class="input" id='email' type='text' value='' placeholder='@email' name='email')
+
+        div(class="field")
+          p(class="control has-icons-left")
+            input(class="input" id='password' type='password' value='' placeholder='password' name='password')
+
+        div(class="field")
+          p(class="control has-icons-left")
+            input(class="input" id='password2',type='password',value='',placeholder='confirm',name='password2' required='true')
+
+        if error
+          p(class='has-text-centered has-text-danger')= error
+
+        div(class="field")
+          p(class="control has-text-centered")
+            button(class="button is-success" type='submit',value='Sign Up') Sign Up
+
+        div(class='container has-text-centered')
+          p(class='') Already have an account?  
+          a(href="/login" class='has-text-centered') Log in
+   
