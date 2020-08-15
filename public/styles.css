@@ -23,6 +23,29 @@ body::after {
     z-index: -1;   
 }
 
+nav {
+    margin-bottom: 1em;
+}
+
+h1 {
+    font-family: 'Sacramento', cursive;
+    font-size: 60px;
+    margin-top: 10px;
+}
+
+.menuLink {
+    color: black;
+    width: 90%;
+}
+
+.menuLink:hover{
+    color: hsl(171, 100%, 41%);
+}
+
+.menuLink:focus{
+    color:hsl(171, 100%, 41%);
+}
+
 .menuIcon {
     height: 80%;
     width: 80%;
@@ -34,7 +57,7 @@ body::after {
     margin: 1em auto;
     width: 90%;
     border-radius: 10px;
-    max-width: 50%;
+    max-width: 400px;
     background: rgba(72, 102, 60, 0.1);
 }
 
@@ -42,7 +65,7 @@ body::after {
     padding: 5px;
     margin-bottom: 1em;
     border-radius: 10px;
-    background-color: rgba(72, 102, 60, 0.5);
+    background-color: rgba(72, 102, 60, 0.1);
 }
 
 .formBody {
@@ -53,21 +76,17 @@ body::after {
 .labelGroup {
     max-width: 95%;
     display: inline;
-    margin: 1em;
+    margin: 1em auto;
 }
 
 .foodLabel {
     min-width: 2em;
-    margin: 5px;
+    margin: 2px;
+    padding: 3px 12px;
 }
 
 .submitItem {
     margin-top: 1em;
-}
-
-.field {
-    max-width: 60%;
-    margin: 0 auto;
 }
 
 .control {

@@ -1,20 +1,20 @@
 extends ../../partials/layouts/layout
 
 block content  
-  div(class='container is-fluid')  
+  div(class='container')  
     div(class='container')
-      h1(class='title has-text-centered')= title
+      h1(class='title has-text-centered has-text-primary')= title
       if message
         h2= message
       div(class='container')
       //- input(id='file',type='file',value='',placeholder='', name='file' accept="image/*")
       div(class="file has-name is-boxed is-centered")
         label(class="file-label")
-          input(class="file-input" id='file',type='file',value='',placeholder='', name='file' accept="image/*")
-          span(class="file-cta")
+          input(class="file-input" id='file',type='file',value='',placeholder='', name='file' accept="image/*" class='has-background-primary')
+          span(class="file-cta has-background-primary-light")
             span(class="file-icon")
               img(class="fas fa-upload" src='https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png')
 
-            span(class="file-label") Choose a file…
-      hr
+            span(class="file-label") Take a photo…
+      br
       div(id='foodLabels' class='is-centered')

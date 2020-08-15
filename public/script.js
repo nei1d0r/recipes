@@ -39,7 +39,7 @@ window.onload = async () => {
                 }
                 // make form element
                 const form = document.createElement('form')
-                form.setAttribute('class','formBody container')
+                form.setAttribute('class','formBody container has-text-centered')
                 form.setAttribute('id', 'labelForm')
                 form.setAttribute('name', 'form')
                 form.setAttribute('method', 'POST')
@@ -47,7 +47,7 @@ window.onload = async () => {
 
                     //  Make first div    
                     const ingredientDiv = document.createElement('div')
-                    ingredientDiv.setAttribute('class','labelGroup form-group')
+                    ingredientDiv.setAttribute('class','labelGroup form-group has=text-centered')
                     labels.forEach(ingredient => {                
                         //  Make label
                         const label = document.createElement('label')
@@ -60,11 +60,12 @@ window.onload = async () => {
                                 
                                 radioLabels.forEach((button) => {
                                     button.classList.remove('is-focused')
-                                    button.classList.remove('is-success')
+                                    button.classList.remove('is-primary')
+                                    button.classList.remove('is-light')
                                     button.classList.add('is-outline')
                                 })
                                 // change class to focused
-                                event.target.setAttribute('class', 'foodLabel button is-focused is-success')
+                                event.target.setAttribute('class', 'foodLabel button is-focused is-primary is-light')
                             })
                     
                         //  Make input
@@ -83,7 +84,6 @@ window.onload = async () => {
                     })
                     // EXPIRY DATE---------------------------------------------
                     const expiryDiv = document.createElement('div')
-                    expiryDiv.setAttribute('class', 'field')
 
                     const dateLabel = document.createElement('label')
                     dateLabel.setAttribute('class','label')
@@ -91,7 +91,7 @@ window.onload = async () => {
                     dateLabel.innerHTML += 'Expiry Date'
 
                     const dateInput = document.createElement('input')
-                    dateInput.setAttribute('class','input is-medium')
+                    dateInput.setAttribute('class','input is-small')
                     dateInput.setAttribute('type', 'date')
                     dateInput.setAttribute('id', 'expiryDate')
                     dateInput.setAttribute('name', 'expiryDate')
@@ -110,7 +110,7 @@ window.onload = async () => {
                     QuantityInput.setAttribute('type', 'number')
                     QuantityInput.setAttribute('min', '1')
                     QuantityInput.setAttribute('max', '10')
-                    QuantityInput.setAttribute('class','input is-medium')
+                    QuantityInput.setAttribute('class','input is-small')
                     QuantityInput.setAttribute('id', 'quantity')
                     QuantityInput.setAttribute('name', 'quantity')
                     // SET MIN MAX VALUES
@@ -128,7 +128,7 @@ window.onload = async () => {
 
                     const storageList = document.createElement('input')
                     storageList.setAttribute('id', 'storageList')
-                    storageList.setAttribute('class','input is-medium')
+                    storageList.setAttribute('class','input is-small')
                     storageList.setAttribute('name', 'location')
                     storageList.setAttribute('list', 'location')
 
@@ -151,7 +151,7 @@ window.onload = async () => {
                     submitDiv.setAttribute('class', 'button medium')
 
                     const submitButton = document.createElement('input')
-                    submitButton.setAttribute('class','submitItem button is-medium is-fullwidth is-success is-light')
+                    submitButton.setAttribute('class','submitItem button is-medium is-fullwidth is-primary is-light')
                     submitButton.setAttribute('type', 'submit')
                     submitButton.setAttribute('id', 'submit')
                     submitButton.setAttribute('value', 'Add Item to Inventory')

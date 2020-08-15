@@ -15,11 +15,11 @@ ImageModel.identifyFoodItem = async (base64Image) => {
     const labels = result.labelAnnotations;
     // select relevent fields from result and map them
     const mappedLabels = []
-    const data = labels.forEach(label => {
+    labels.forEach(label => {
        mappedLabels.push(label.description)
     })
 
-    return mappedLabels
+    return mappedLabels.slice(0,5)
   }
 
 ImageModel.convertBase64ToImage = async (base64Image) => {
