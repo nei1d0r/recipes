@@ -76,10 +76,10 @@ app.post("/login", async (req, res) => {
   if (!passwordMatch) res.render('./pages/signup', { error: 'Your username or password are not recognised' })
 
   // set JWT or Cookie??
-  const token = jwt.sign({ sub: user.id, email: user.email }, secret, { expiresIn: '15m' })
+  const token = jwt.sign({ sub: user.id, email: user.email }, secret, { expiresIn: '7d' })
 
   // THIS IS A BAD EXAMPLE OF STORING A JWT!! I WOULDN'T DO THIS IN PRODUCTION
-  res.cookie('__session', token, { expires: new Date(Date.now() + 900000), httpOnly: true })
+  res.cookie('__session', token, { expires: new Date(Date.now() + 604800), httpOnly: true })
   res.redirect('../../') // currently redirects to home... go to app main page? 
 })
 

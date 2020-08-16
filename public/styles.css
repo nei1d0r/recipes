@@ -62,6 +62,7 @@ h1 {
 }
 
 .labelDiv {
+    max-width: 500px;
     padding: 5px;
     margin-bottom: 1em;
     border-radius: 10px;
@@ -74,9 +75,15 @@ h1 {
 }
 
 .labelGroup {
+    max-width: 98%;
+    margin: 2px auto;
+}
+
+#foodLabels {
+    min-width: 2em;
     max-width: 95%;
-    display: inline;
-    margin: 1em auto;
+    margin: 2px auto;
+    padding: 3px 12px;
 }
 
 .foodLabel {

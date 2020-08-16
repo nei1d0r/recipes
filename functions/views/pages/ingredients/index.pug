@@ -1,12 +1,12 @@
 extends ../../partials/layouts/layout
 
 block content
-  h1= heading
+  h1(class='title has-text-centered')= heading
   a(href='/api/ingredients/add') Add Ingredients
   div
     each val in ingredients
       p= val.label
       p= val.quantity
       p= val.location
-      p(class=val.expiringSoon)= val.expiryDate
+      span(class=val.expiringSoon)= val.expiryDate
 

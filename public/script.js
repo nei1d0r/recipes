@@ -31,12 +31,13 @@ window.onload = async () => {
 
         await fileToBase64(file).then((labels) => {
             let labelDiv = document.getElementById('foodLabels')
-            labelDiv.setAttribute('class', 'labelDiv')
+            labelDiv.setAttribute('class', 'labelDiv container-fluid has-text-centered')
 
                 // TODO - overwrites the existing form when image is changed
                 while (labelDiv.firstChild) {
                     labelDiv.removeChild(labelDiv.firstChild);
                 }
+
                 // make form element
                 const form = document.createElement('form')
                 form.setAttribute('class','formBody container has-text-centered')
@@ -48,6 +49,7 @@ window.onload = async () => {
                     //  Make first div    
                     const ingredientDiv = document.createElement('div')
                     ingredientDiv.setAttribute('class','labelGroup form-group has=text-centered')
+
                     labels.forEach(ingredient => {                
                         //  Make label
                         const label = document.createElement('label')
@@ -148,7 +150,6 @@ window.onload = async () => {
 
                     // SUBMIT BUTTON ---------------------------------------------
                     const submitDiv = document.createElement('div')
-                    submitDiv.setAttribute('class', 'button medium')
 
                     const submitButton = document.createElement('input')
                     submitButton.setAttribute('class','submitItem button is-medium is-fullwidth is-primary is-light')
@@ -163,11 +164,17 @@ window.onload = async () => {
                 form.appendChild(expiryDiv)
                 form.appendChild(QuantityDiv)
                 form.appendChild(locationDiv)
-                form.appendChild(submitButton)
+                form.appendChild(submitDiv)
 
                 // TODO - CURRENTLY RETURNING... { label: 'on', expiryDate: '2020-08-22', quantity: '1' }
-
+            
+            const text = document.createTextNode('Please select the best description for your ingredient...')
+            
+            labelDiv.appendChild(text)
             labelDiv.appendChild(form)
+        })
+        .catch((err) => {
+            console.log(err)
         })
     })
 }
