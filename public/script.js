@@ -1,7 +1,7 @@
 window.onload = async () => {
     // set file upload event from DOM
     // quick check to see if we need to load script
-    !!!document.getElementById('file') ? console.log('Not ingredients') 
+    !!!document.getElementById('file') ? console.log('NOT /ingredients/add') 
     : document.getElementById('file').addEventListener('change', async (e) => {
         const file = event.srcElement.files[0]
         // Convert file to base64 in order to send to server for labelling
@@ -177,4 +177,15 @@ window.onload = async () => {
             console.log(err)
         })
     })
+
+    if (!document.getElementById('ingredientsAdded')) {
+        console.log('NOT /ingredients') 
+    } else {
+        const article = document.getElementById('ingredientsAdded')
+        const message = document.getElementById('message')
+        document.getElementById('delete').addEventListener('click', (e) => {
+            article.remove()
+            message.remove
+        })          
+    }
 }

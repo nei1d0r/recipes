@@ -2,11 +2,79 @@ extends ../../partials/layouts/layout
 
 block content
   h1(class='title has-text-centered')= heading
-  a(href='/api/ingredients/add') Add Ingredients
-  div
-    each val in ingredients
-      p= val.label
-      p= val.quantity
-      p= val.location
-      span(class=val.expiringSoon)= val.expiryDate
 
+  div(class='addIngredients has-text-centered is-size-5')
+    a(href='/api/ingredients/add' class='has-text-primary	') Add Ingredients
+  div(id='ingredientsTable' class='ingredientsList')
+    if queryParams
+      article(id='ingredientsAdded' class="message is-primary")
+        div(class="message-header")
+          p Ingredient Added
+          button(id='delete' class="delete" aria-label="delete")
+      
+        div(id='message' class="message-body") 
+          p Ingredient: #{queryParams.label}
+          p Quantity: #{queryParams.quantity}
+          p Location: #{queryParams.location}
+          p Expires: #{queryParams.expiryDate}
+
+    hr
+    details
+      summary(class='has-text-centered is-size-4') Fridge
+      table(class='table is-hoverable is-fullwidth')
+        thead(class='thead')
+          tr(class='tr')
+            th Ingredient
+            th quantity
+            th expiry
+            tbody(class='tbody')
+              each ingredient, i in ingredients.fridge
+                tr
+                  td #{ingredient.label}
+                  td #{ingredient.quantity}
+                  td(class=ingredient.expiringSoon) #{ingredient.expiryDate}
+    details
+      summary(class='has-text-centered is-size-4') Freezer
+      table(class='table is-hoverable is-fullwidth')
+        thead(class='thead')
+          tr(class='tr')
+            th Ingredient
+            th quantity
+            th expiry
+            tbody(class='tbody')
+              each ingredient, i in ingredients.freezer
+                tr
+                  td #{ingredient.label}
+                  td #{ingredient.quantity}
+                  td(class=ingredient.expiringSoon) #{ingredient.expiryDate}
+    details
+      summary(class='has-text-centered is-size-4') Cupboard            
+      table(class='table is-hoverable is-fullwidth')
+        thead(class='thead')
+          tr(class='tr')
+            th Ingredient
+            th quantity
+            th expiry
+            tbody(class='tbody')
+              each ingredient, i in ingredients.cupboard
+                tr
+                  td #{ingredient.label}
+                  td #{ingredient.quantity}
+                  td(class=ingredient.expiringSoon) #{ingredient.expiryDate}
+    details  
+      summary(class='has-text-centered is-size-4') Other
+      table(class='table is-hoverable is-fullwidth')
+        thead(class='thead')
+          tr(class='tr')
+            th Ingredient
+            th quantity
+            th location
+            th expiry
+            tbody(class='tbody')
+              each ingredient, i in ingredients.other
+                tr
+                  td #{ingredient.label}
+                  td #{ingredient.quantity}
+                  td #{ingredient.location}
+                  td(class=ingredient.expiringSoon) #{ingredient.expiryDate}
+      

@@ -23,7 +23,7 @@ app.get("/", authJWT, async (req, res) => {
   res.status(200).json(users)
 })
 
-app.get("/:id", async (req, res) => {
+app.get("/:id", authJWT, async (req, res) => {
     const snapshot = await admin.firestore().collection('users').doc(req.params.id).get()
     const userId = snapshot.id
     const userData = snapshot.data()
@@ -69,17 +69,17 @@ app.post("/login", async (req, res) => {
     })
   })
 
-  if (user.length < 1) res.render('./pages/signup', { error: 'Your username or password are not recognised' })
+  if (user.length < 1) res.render('./pages/login', { error: 'Your username or password are not recognised' })
 
   // Compare used to negate unhashing of passwords in API
   const passwordMatch = await bcrypt.compare(password, user.password)
-  if (!passwordMatch) res.render('./pages/signup', { error: 'Your username or password are not recognised' })
+  if (!passwordMatch) res.render('./pages/login', { error: 'Your username or password are not recognised' })
 
   // set JWT or Cookie??
   const token = jwt.sign({ sub: user.id, email: user.email }, secret, { expiresIn: '7d' })
 
   // THIS IS A BAD EXAMPLE OF STORING A JWT!! I WOULDN'T DO THIS IN PRODUCTION
-  res.cookie('__session', token, { expires: new Date(Date.now() + 604800), httpOnly: true })
+  res.cookie('__session', token, { expires: new Date(Date.now() + 3600000*24*7), httpOnly: true })
   res.redirect('../../') // currently redirects to home... go to app main page? 
 })
 

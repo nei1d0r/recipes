@@ -3,18 +3,37 @@ const RecipeModel = {}
 RecipeModel.structuredRequest = (apiKey, ingredients, limit ) => {
     const baseUrl = 'https://api.spoonacular.com/recipes/findByIngredients?'
     let INGREDIENTS_QUERY = ''
+    let INTOLERANCE_QUERY = ''
     let MAX_LIMIT = 4
-    
+
+
+    const { ingredient, intolerance } = ingredients    
+    // PARSE INGREDIENTS
     // creates ingredients query string for individual ingredient
-    if (ingredients && ingredients.length === 1) INGREDIENTS_QUERY = `&ingredients=${ingredients[0]}`
+    if (typeof ingredient === 'string' && ingredients) INGREDIENTS_QUERY = `&ingredients=${ingredient}`
 
     // creates ingredients query string for multiple ingredients
-    if (ingredients && ingredients.length) {
-      ingredients.forEach(ingredient => {
+    if (typeof ingredient !== 'string' && ingredients) {
+      const [...uniqueIngredients] = new Set(ingredient)
+      uniqueIngredients.forEach(ingredient => {
         INGREDIENTS_QUERY += `${ingredient}+,`
       })
       const slicedIngredients = INGREDIENTS_QUERY.slice(0,-2)
       INGREDIENTS_QUERY = `&ingredients=${slicedIngredients}`
+    }
+
+    // PARSE INTOLERANCES
+    // creates intolerance query string for individual intolerance
+    if (typeof intolerance === 'string' && ingredients) INGREDIENTS_QUERY = `&intolerances=${intolerance}`
+
+    // creates ingredients query string for multiple ingredients
+    if (typeof intolerance !== 'string' && ingredients) {
+      const [...uniqueIngredients] = new Set(intolerance)
+      uniqueIngredients.forEach(intolerance => {
+        INTOLERANCE_QUERY += `${intolerance}+,`
+      })
+      const slicedIntolerences = INTOLERANCE_QUERY.slice(0,-2)
+      INTOLERANCE_QUERY = `&intolerances=${slicedIntolerences}`
     }
 
     // sets MAX_LIMIT to user defined max limit (if less than original MAX_LIMIT)
@@ -23,7 +42,7 @@ RecipeModel.structuredRequest = (apiKey, ingredients, limit ) => {
     // BUUILD UP REQUEST AS WE LEARN MORE ABOUT REQUIREMENTS
     // CONSIDER PAGINATION - OR AT LEAST WRITE ABOUT IT!
 
-    const structuredRequestUrl = `${baseUrl}apiKey=${apiKey}${INGREDIENTS_QUERY}&number=${MAX_LIMIT}`
+    const structuredRequestUrl = `${baseUrl}apiKey=${apiKey}${INGREDIENTS_QUERY}${INTOLERANCE_QUERY}}&number=${MAX_LIMIT}`
     return structuredRequestUrl
   }
 

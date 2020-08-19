@@ -1,0 +1,57 @@
+extends ../../partials/layouts/layout
+
+block content
+  h1(class='title has-text-centered')= heading
+
+  div(class='addIngredients has-text-centered is-size-5')
+    a(href='/api/ingredients/add' class='has-text-primary	') Add Ingredients
+  div(id='ingredientsTable' class='ingredientsList')
+    hr
+    form(action='./recipes' method='post' class='formBody labelGroup has-text-centered')
+        fieldset
+            details
+                summary(class='has-text-centered is-size-4') Fridge
+                //- index (i) used here to distinguish between same name values
+                each ingredient, i in ingredients.fridge
+                    div(class='field')
+                        input(type='checkbox' class='control' name=`ingredient`, value=`${ingredient.label}`, id=`fridge${ingredient.label+i}`) 
+                        label(for=`fridge${ingredient.label+i}`)= ingredient.label
+                        |
+                        span(class=ingredient.expiringSoon) #{ingredient.expiryDate}
+        fieldset                
+            details
+                summary(class='has-text-centered is-size-4') Freezer
+                each ingredient, i in ingredients.freezer
+                    div(class='field')
+                        input(type='checkbox' class='control' name=`ingredient`, value=`${ingredient.label}`, id=`freezer${ingredient.label+i}`) 
+                        label(for=`freezer${ingredient.label+i}`)= ingredient.label 
+                        |
+                        span(class=ingredient.expiringSoon) #{ingredient.expiryDate}
+        fieldset    
+            details
+                summary(class='has-text-centered is-size-4') Cupboard            
+                each ingredient, i in ingredients.cupboard
+                    div(class='field')
+                        input(type='checkbox' class='control' name=`ingredient`, value=`${ingredient.label}`, id=`cupboard${ingredient.label+i}`) 
+                        label(for=`cupboard${ingredient.label+i}`)= ingredient.label
+                        |
+                        span(class=ingredient.expiringSoon) #{ingredient.expiryDate}
+        fieldset
+            details  
+                summary(class='has-text-centered is-size-4') Other
+                each ingredient, i in ingredients.other
+                    div(class='field')
+                        input(type='checkbox' class='control' name=`ingredient`, value=`${ingredient.label}`, id=`other${ingredient.label+i}`) 
+                        label(for=`other${ingredient.label+i}`)= ingredient.label
+                        |
+                        span(class=ingredient.expiringSoon) #{ingredient.expiryDate}
+        fieldset
+            details  
+                summary(class='has-text-centered is-size-4') Intolerances
+                each intolerance in ['Dairy', 'Egg', 'Gluten', 'Grain', 'Peanut', 'Seafood', 'Sesame', 'Shellfish', 'Soy', 'Sulfite', 'Tree Nut', 'Wheat']
+                    div(class='field')
+                        input(type='checkbox' class='control' name=`intolerance`, value=`${intolerance}`, id=`other${intolerance}`) 
+                        label(for=`other${intolerance}`)= intolerance
+        div(class="field")
+            p(class="control has-text-centered")
+                button(class="button is-success" type='submit',value='getRecipes') Get Recipes

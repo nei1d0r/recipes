@@ -54,3 +54,7 @@ $env:GOOGLE_APPLICATION_CREDENTIALS="[PATH]"
     Tried handlebars, did not work well... 
     tried Pug, integrated into app well!!!
     documentation for pug: https://pugjs.org/language/iteration.html
+
+// SPOONACULAR API
+    https://spoonacular.com/food-api/docs#Search-Recipes-Complex - complex recipe structuring
+    https://spoonacular.com/food-api/docs#Intolerances - intolerences list

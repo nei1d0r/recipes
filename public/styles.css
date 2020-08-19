@@ -47,16 +47,18 @@ h1 {
 }
 
 .menuIcon {
-    height: 80%;
-    width: 80%;
+    height: 50%;
+    width: 50%;
     max-height: 220px;
     max-width: 220px;
 }
 
 .mainMenuDiv {
     margin: 1em auto;
-    width: 90%;
+    width: 70%;
+    height: 70%;
     border-radius: 10px;
+    max-height: 400px;
     max-width: 400px;
     background: rgba(72, 102, 60, 0.1);
 }
@@ -98,4 +100,72 @@ h1 {
 
 .control {
     margin: 5px;
+}
+
+.ingredientsList {
+    width: 95%;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.addIngredients {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 1em;
+    border-top: 5px solid  rgba(72, 102, 60, 0.1);
+    border-bottom: 5px solid  rgba(72, 102, 60, 0.1);
+}
+
+summary {
+    background:  rgba(72, 102, 60, 0.1);
+    padding: 1em;
+    margin: 0 auto;
+    margin-bottom: 0px, 1px, 0px, 1px;
+    border-bottom: 2px solid white;
+}
+
+article {
+    background: green;
+    position: absolute;
+    width: 60%;
+    float: left;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.inDate:before {
+    content: '';
+    color: green;
+    display: block;
+    background: url("icon.jpg") no-repeat;
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 0 6px 0 0;
+}
+
+.expired:before {
+    content: '';
+    color: red;
+    display: block;
+    background: url('https://img.icons8.com/office/16/000000/hazard-warning-flasher.png') no-repeat;
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 0 6px 0 0;
+}
+
+.expired {
+    text-decoration: line-through;
+}
+
+.expiresToday:before {
+    content: '';
+    color: orange;
+    display: block;
+    background: url("https://img.icons8.com/office/16/000000/last-24-hours.png") no-repeat;
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 0 6px 0 0;
 }
