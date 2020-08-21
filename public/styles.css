@@ -39,11 +39,11 @@ h1 {
 }
 
 .menuLink:hover{
-    color: hsl(171, 100%, 41%);
+    color: hsl(204, 86%, 53%);
 }
 
 .menuLink:focus{
-    color:hsl(171, 100%, 41%);
+    color: hsl(204, 86%, 53%);
 }
 
 .menuIcon {
@@ -60,7 +60,7 @@ h1 {
     border-radius: 10px;
     max-height: 400px;
     max-width: 400px;
-    background: rgba(72, 102, 60, 0.1);
+    background: hsla(204, 86%, 53%, 0.2);
 }
 
 .labelDiv {
@@ -68,7 +68,7 @@ h1 {
     padding: 5px;
     margin-bottom: 1em;
     border-radius: 10px;
-    background-color: rgba(72, 102, 60, 0.1);
+    background-color: hsla(204, 86%, 53%, 0.1);
 }
 
 .formBody {
@@ -111,12 +111,12 @@ h1 {
 .addIngredients {
     background: rgba(255, 255, 255, 0.5);
     padding: 1em;
-    border-top: 5px solid  rgba(72, 102, 60, 0.1);
-    border-bottom: 5px solid  rgba(72, 102, 60, 0.1);
+    border-top: 5px solid  hsla(204, 86%, 53%, 0.2);
+    border-bottom: 5px solid  hsla(204, 86%, 53%, 0.2);
 }
 
 summary {
-    background:  rgba(72, 102, 60, 0.1);
+    background:  hsla(204, 86%, 53%, 0.2);
     padding: 1em;
     margin: 0 auto;
     margin-bottom: 0px, 1px, 0px, 1px;

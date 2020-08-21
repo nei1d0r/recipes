@@ -63,12 +63,12 @@ window.onload = async () => {
                                 
                                 radioLabels.forEach((button) => {
                                     button.classList.remove('is-focused')
-                                    button.classList.remove('is-primary')
+                                    button.classList.remove('is-info')
                                     button.classList.remove('is-light')
                                     button.classList.add('is-outline')
                                 })
                                 // change class to focused
-                                event.target.setAttribute('class', 'foodLabel button is-focused is-primary is-light')
+                                event.target.setAttribute('class', 'foodLabel button is-focused is-info is-light')
                             })
                     
                         //  Make input
@@ -153,7 +153,7 @@ window.onload = async () => {
                     const submitDiv = document.createElement('div')
 
                     const submitButton = document.createElement('input')
-                    submitButton.setAttribute('class','submitItem button is-medium is-fullwidth is-primary is-light')
+                    submitButton.setAttribute('class','submitItem button is-medium is-fullwidth is-info is-light')
                     submitButton.setAttribute('type', 'submit')
                     submitButton.setAttribute('id', 'submit')
                     submitButton.setAttribute('value', 'Add Item to Inventory')

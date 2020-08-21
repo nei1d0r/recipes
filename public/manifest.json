@@ -1,0 +1,12 @@
+{
+    "name": "PWAConf",
+    "short_name": "PWAConf",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#2A3443",
+    "description": "A recipe suggestion application",
+    "theme_color": "#2A3443",
+    "icons": [
+
+    ]
+  }

@@ -2,13 +2,13 @@ extends ../../partials/layouts/layout
 
 block content
   div
-    h1(class='title has-text-centered has-text-primary is-size-1')= heading
+    h1(class='title has-text-centered has-text-info is-size-1')= heading
 
     div(class='addIngredients has-text-centered is-size-5')
-      a(href='/api/ingredients/add' class='has-text-primary	') Add Ingredients
+      a(href='/api/ingredients/add' class='has-text-info') Add Ingredients
     div(id='ingredientsTable' class='ingredientsList')
       if queryParams
-        article(id='ingredientsAdded' class="message is-primary")
+        article(id='ingredientsAdded' class="message is-info")
           div(class="message-header")
             p Ingredient Added
             button(id='delete' class="delete" aria-label="delete")

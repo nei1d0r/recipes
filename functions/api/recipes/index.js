@@ -4,12 +4,13 @@ const admin = require("firebase-admin")
 const request = require('request-promise')
 const RecipeModel = require('../../models/recipes')
 const { apiKey } = require('../../config.json')
+const { authJWT } = require('../authentication')
 
 app.set('view engine', 'pug')
 app.use(express.static('public'));
 
 
-app.get("/", async (req, res) => {
+app.get("/", authJWT, async (req, res) => {
   const snapshot = await admin.firestore().collection("ingredients").get()
   // if we land on this page from add-iongredient, then we can get the
   // details to post as a success message
@@ -51,7 +52,7 @@ app.get("/", async (req, res) => {
   return res.render('./pages/recipes/select-ingredients', { heading: 'Choose Ingredients', ingredients: sortedIngredients, expiringSoon: ingredients.expiringSoon, queryParams })
 })
 
-app.post("/", async (req, res) => {
+app.post("/", authJWT, async (req, res) => {
   if (!Object.keys(req.body).length > 0) return res.redirect('./recipes?error=You must select at least one ingredient or intolerance')
   const ingredients = req.body
   const requestUrl = RecipeModel.structuredRequest(apiKey, ingredients, limit = 4)
@@ -60,7 +61,7 @@ app.post("/", async (req, res) => {
   return res.render('./pages/recipes/choose-recipe', { parsedRecipes })
 })
 
-app.get("/:id", async (req, res) => {
+app.get("/:id", authJWT, async (req, res) => {
   const recipeId = req.params.id
   const recipeInformationUrl = `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}`
 
