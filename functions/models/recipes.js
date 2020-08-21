@@ -24,7 +24,7 @@ RecipeModel.structuredRequest = (apiKey, ingredients, limit ) => {
 
     // PARSE INTOLERANCES
     // creates intolerance query string for individual intolerance
-    if (typeof intolerance === 'string' && ingredients) INGREDIENTS_QUERY = `&intolerances=${intolerance}`
+    if (typeof intolerance === 'string' && ingredients) INTOLERANCE_QUERY = `&intolerances=${intolerance}`
 
     // creates ingredients query string for multiple ingredients
     if (typeof intolerance !== 'string' && ingredients) {
@@ -36,13 +36,11 @@ RecipeModel.structuredRequest = (apiKey, ingredients, limit ) => {
       INTOLERANCE_QUERY = `&intolerances=${slicedIntolerences}`
     }
 
-    // sets MAX_LIMIT to user defined max limit (if less than original MAX_LIMIT)
+    // sets MAX_LIMIT to user defined max limit (if less than original MAX_LIMIT) - to save me money :)
     if (limit && limit < MAX_LIMIT) MAX_LIMIT = limit
-
-    // BUUILD UP REQUEST AS WE LEARN MORE ABOUT REQUIREMENTS
-    // CONSIDER PAGINATION - OR AT LEAST WRITE ABOUT IT!
-
-    const structuredRequestUrl = `${baseUrl}apiKey=${apiKey}${INGREDIENTS_QUERY}${INTOLERANCE_QUERY}}&number=${MAX_LIMIT}`
+    
+    const structuredRequestUrl = `${baseUrl}apiKey=${apiKey}${INGREDIENTS_QUERY}${INTOLERANCE_QUERY}&number=${MAX_LIMIT}`
+    console.log('URL', structuredRequestUrl)
     return structuredRequestUrl
   }
 

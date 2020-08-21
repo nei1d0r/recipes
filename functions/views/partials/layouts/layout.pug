@@ -3,14 +3,12 @@ html
   head
     title Recipes
     //- local dev
-    script(src='../../../script.js')
-    link(href='../../../styles.css', rel='stylesheet' Content-Type='text/css')
+    script(src='/script.js')
+    link(href='/styles.css', rel='stylesheet' Content-Type='text/css')
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     //- hosted
-    script(src='script.js')
     link(href='https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css', rel='stylesheet')
-    link(href='styles.css', rel='stylesheet' Content-Type='text/css')
     <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
   body
     nav(class="navbar" role="navigation" aria-label="main navigation")
@@ -18,7 +16,7 @@ html
       div(class="container navbar-end")
         div(class="navbar-item")
           div(class="buttons level-right")
-            a(class="button is-primary" href="/signup") Sign up
-            a(class="button is-light") Log in
+            a(class="button is-primary" href="/api/recipes") Recipes
+            a(class="button is-light" href="/api/ingredients") Ingredients
 
     block content

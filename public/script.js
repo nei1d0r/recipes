@@ -23,6 +23,7 @@ window.onload = async () => {
                 })
                 .then(async (res) => {
                     return res.json()
+                    // hide spinner?
                 })
             })
             .catch((err) => {
