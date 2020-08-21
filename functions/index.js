@@ -10,30 +10,17 @@ const { authJWT } = require('./api/authentication')
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
-app.locals.basedir = path.join(__dirname, 'views');
+app.locals.basedir = path.join(__dirname, 'views')
 
-app.use(express.static('public'));
-
-
-app.set('etag', false); // turn off
+app.use(express.static('public'))
+app.set('etag', false)
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(express.static('public'));
+app.use(express.static('public'))
 app.use('/api', routes)
-
-// const cors = require('cors')
-// app.use(cors())
-// app.options('*', cors())
 
 const utils = require('./models/utils')
 
-admin.initializeApp(functions.config().firebase) // prod
-
-// var serviceAccount = require("../firebaseService.json") // dev
-// const { request } = require('express')
-// admin.initializeApp({
-// credential: admin.credential.cert(serviceAccount),
-// databaseURL: "https://raspi-8c114.firebaseio.com"
-// })
+admin.initializeApp(functions.config().firebase)
 
 // initialize db
 getFirestore = async () => {
@@ -73,4 +60,3 @@ app.get('*', (req,res) =>{
 })
     
 exports.app = functions.https.onRequest(app)
-// exports.app = functions.region('europe-west2').https.onRequest(app)

@@ -40,7 +40,6 @@ RecipeModel.structuredRequest = (apiKey, ingredients, limit ) => {
     if (limit && limit < MAX_LIMIT) MAX_LIMIT = limit
     
     const structuredRequestUrl = `${baseUrl}apiKey=${apiKey}${INGREDIENTS_QUERY}${INTOLERANCE_QUERY}&number=${MAX_LIMIT}`
-    console.log('URL', structuredRequestUrl)
     return structuredRequestUrl
   }
 
