@@ -24,15 +24,39 @@ html(lang="en")
     script(src='/script.js')
     <link rel="manifest" href="/pwa.webmanifest">
   body
-    nav(class="navbar" role="navigation" aria-label="main navigation")
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+          <img src="https://image.flaticon.com/icons/svg/2729/2729077.svg" width="112" height="28">
+        </a>
 
-      div(class="container navbar-end")
-        div(class="navbar-item")
-          div(class="buttons level-right")
-            a(class="button is-info is-light" href="/api/recipes") Recipes
-            a(class="button is-light" href="/api/ingredients") Ingredients
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons has-text-end level-right">
+              <a class="button is-info" href="/api/recipes">
+                <strong>Recipes</strong>
+              </a>
+              <a class="button is-light" href="/api/ingredients">
+              |  Ingredients
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
 
     block content
     <script src="/pwa.js"></script>
     <script src="/status.js"></script>
     <script src="/service-worker.js"></script>
+
+
+    
