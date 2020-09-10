@@ -5,7 +5,7 @@ block content
 
   h2(class='has-text-centered is-size-5')= recipe.title
   p(class='has-text-centered is-size-7 has-text-weight-semibold') Cooking Time: #{recipe.readyInMinutes}mins
-  div(class='container is-fluid')
+  div(class='container is-fluid has-background-white-ter')
     hr
     div(class='recipeContainer')
       div(class='has-text-justified')
@@ -18,21 +18,21 @@ block content
           ul
             li #{ingredient.name} (#{ingredient.amount}#{ingredient.unit})
       br
-      div(class='has-text-justified')  
-        p(class='is-size-5 has-text-weight-semibold') Instructions Summary
-        p= recipe.instructions
-      br
-      details(class='mb-4')
-        summary(class='used is-size-6 pb-4') Step by Step
-        div(class='has-text-justified')
-          if recipe.analyzedInstructions !== 'null'
-            p(class='is-size-5 has-text-weight-semibold') Step by step instructions
-            each instruction in recipe.analyzedInstructions
-              each steps in instruction.steps
-                p(class='is-size-6 has-text-weight-semibold') Step#{steps.number}
-                p #{steps.step}
-          else
-            p So sorry, there are no step by step instructions for this recipe.
+      if recipe.analyzedInstructions.length
+        div(class='has-text-justified')  
+          p(class='is-size-5 has-text-weight-semibold') Instructions Summary
+          p= recipe.instructions
+        br
+        details(class='mb-4')
+          summary(class='used is-size-6 pb-4') Step by Step
+          div(class='has-text-justified')
+              p(class='is-size-5 has-text-weight-semibold') Step by step instructions
+              each instruction in recipe.analyzedInstructions
+                each steps in instruction.steps
+                  p(class='is-size-6 has-text-weight-semibold') Step#{steps.number}
+                  p #{steps.step}
+      else
+        p So sorry, there are no step by step instructions for this recipe.
              
        
     

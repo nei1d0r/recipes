@@ -4,47 +4,26 @@ const app = express()
 const bodyParser = require('body-parser')
 const path = require('path')
 const admin = require('firebase-admin')
-
+const utils = require('./models/utils')
 const routes = require('./api/index')
 const { authJWT } = require('./api/authentication')
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 app.locals.basedir = path.join(__dirname, 'views')
+app.set('etag', false)
 
 app.use(express.static('public'))
-app.set('etag', false)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('public'))
 app.use('/api', routes)
 
-const utils = require('./models/utils')
-
 admin.initializeApp(functions.config().firebase)
 
-// initialize db
-getFirestore = async () => {
-    const firestore_con  = await admin.firestore()
-    const writeResult = firestore_con.collection('sample').doc('sample_doc').get()
-        .then(doc => {
-            if (!doc.exists) { 
-                console.log('No such document!') 
-            }
-            else {
-                return doc.data()
-            }
-        })
-        .catch(err => { 
-            console.log('Error getting document', err)
-        })
-    return writeResult
-}
-
 app.get('/', authJWT, async (req,res) =>{   
-    const { user } = res.locals 
-    var db_result = await getFirestore()
+    const { user } = res.locals
     const time = utils.getCurrentTime()
-    res.render('index',{ db_result, time, user })
+    res.render('index',{ time, user })
 })
 
 app.get('/signup',async (req,res) =>{ 

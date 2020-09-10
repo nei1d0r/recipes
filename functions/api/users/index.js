@@ -38,9 +38,11 @@ app.post("/", async (req, res) => {
   if (!email || !password || !password2) res.render('./pages/signup', { error: 'Please provide all required fields' })
   
   // check email is unique and that passwords match
+  if (password !== password2) res.render('./pages/signup', { error: 'Passwords do not match' })
+  
   const userCheck = await admin.firestore().collection('users').where('email', '==', email).get()
   if (!userCheck.empty) res.render('./pages/signup', { error: 'Email address already in use' })
-  if (password !== password2) res.render('./pages/signup', { error: 'Passwords do not match' })
+
   
   // hash password before storing to database
   const user = await bcrypt.hash(password, 2)
@@ -53,7 +55,12 @@ app.post("/", async (req, res) => {
   })
 
   await admin.firestore().collection("users").add(user)
-  return res.render('./pages/login', { message: 'Successfully signed up, please log in' })
+  // set JWT or Cookie??
+  const token = jwt.sign({ sub: user.id, email: user.email }, secret, { expiresIn: '7d' })
+
+  // JWT - expires 1h
+  res.cookie('__session', token, { expires: new Date(Date.now() + 3600000), httpOnly: true })
+  res.redirect('../../') // redirect home
 })
 
 
@@ -80,18 +87,23 @@ app.post("/login", async (req, res) => {
 
   // THIS IS A BAD EXAMPLE OF STORING A JWT!! I WOULDN'T DO THIS IN PRODUCTION
   res.cookie('__session', token, { expires: new Date(Date.now() + 3600000*24*7), httpOnly: true })
-  res.redirect('../../') // currently redirects to home... go to app main page? 
+  res.redirect('../../') // redirect home
 })
 
-// app.put("/:id", async (req, res) => {
-//     const body = req.body
-//     await admin.firestore().collection('users').doc(req.params.id).update(body)
-//     res.status(200).json({})
-// })
+app.get("/logout", async (req, res) => {
+  res.cookie.set('__session', {expires: Date.now()});
+  res.redirect('../../login') 
+})
 
-// app.delete("/:id", async (req, res) => {
-//     await admin.firestore().collection("users").doc(req.params.id).delete()
-//     res.status(200).json({})
-// })
+app.put("/:id", async (req, res) => {
+    const body = req.body
+    await admin.firestore().collection('users').doc(req.params.id).update(body)
+    res.status(200).json({})
+})
+
+app.delete("/:id", async (req, res) => {
+    await admin.firestore().collection("users").doc(req.params.id).delete()
+    res.status(200).json({})
+})
 
 module.exports = app

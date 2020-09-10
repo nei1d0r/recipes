@@ -14,11 +14,10 @@ block content
         div(class="field")
           p(class="control has-icons-left")
             input(class="input" id='password' type='password' value='' placeholder='password' name='password')
-
         div(class="field")
           p(class="control has-icons-left")
             input(class="input" id='password2',type='password',value='',placeholder='confirm',name='password2' required='true')
-
+            span(id='message')
         if error
           p(class='has-text-centered has-text-danger')= error
 

@@ -15,15 +15,35 @@ window.onload = async () => {
                 // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
                 el.classList.toggle('is-active');
                 $target.classList.toggle('is-active');
-
             });
         });
+    }
+
+    if (!!document.getElementById('password2')) {
+        document.addEventListener('keyup', (e) => {
+            if (document.getElementById('password').value ==
+            document.getElementById('password2').value) {
+            document.getElementById('message').style.color = 'green';
+            document.getElementById('message').innerHTML = 'matching';
+            } else {
+            document.getElementById('message').style.color = 'red';
+            document.getElementById('message').innerHTML = 'not matching';
+            }
+        })
     }
 
     // set file upload event from DOM
     // quick check to see if we need to load script
     !!!document.getElementById('file') ? console.log('NOT /ingredients/add')
         : document.getElementById('file').addEventListener('change', async (e) => {
+            
+            const labelDiv = document.getElementById('foodLabels')
+            const loader = document.createElement('p')
+            loader.setAttribute('class', 'label has-text-centered')
+            loader.setAttribute('for', 'expiryDate')
+            loader.innerHTML += '...Loading'
+            labelDiv.appendChild(loader)
+            
             const file = event.srcElement.files[0]
             // Convert file to base64 in order to send to server for labelling
             const fileToBase64 = async (file) =>
@@ -133,7 +153,7 @@ window.onload = async () => {
                 const QuantityInput = document.createElement('input')
                 QuantityInput.setAttribute('type', 'number')
                 QuantityInput.setAttribute('min', '1')
-                QuantityInput.setAttribute('max', '10')
+                QuantityInput.setAttribute('max', '24')
                 QuantityInput.setAttribute('class', 'input is-small')
                 QuantityInput.setAttribute('id', 'quantity')
                 QuantityInput.setAttribute('name', 'quantity')
