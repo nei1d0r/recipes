@@ -40,7 +40,7 @@ window.onload = async () => {
             loader.innerHTML += '...Loading'
             labelDiv.appendChild(loader)
             
-            const file = event.srcElement.files[0]
+            const file = e.target.files[0]
             // Convert file to base64 in order to send to server for labelling
             const fileToBase64 = async (file) =>
                 new Promise((resolve, reject) => {
