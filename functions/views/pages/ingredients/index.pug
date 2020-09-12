@@ -13,12 +13,14 @@ block content
             p Ingredient Added
             button(id='delete' class="delete" aria-label="delete")
         
-          div(id='message' class="message-body") 
+          div(id='message' class="message-body has-text-centered") 
             p Ingredient: #{queryParams.label}
             p Quantity: #{queryParams.quantity}
             p Location: #{queryParams.location}
             p Expires: #{queryParams.expiryDate}
-
+            div(class="button is-info mt-1")
+              a(href='/api/ingredients/add' class='') Add Another
+          
       hr
       details
         summary(class='has-text-centered is-size-4') Fridge

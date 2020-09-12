@@ -85,8 +85,8 @@ app.post("/login", async (req, res) => {
   // set JWT or Cookie??
   const token = jwt.sign({ sub: user.id, email: user.email }, secret, { expiresIn: '7d' })
 
-  // THIS IS A BAD EXAMPLE OF STORING A JWT!! I WOULDN'T DO THIS IN PRODUCTION
-  res.cookie('__session', token, { expires: new Date(Date.now() + 3600000*24*7), httpOnly: true })
+  // JWT set: expiry 1 hour
+  res.cookie('__session', token, { expires: new Date(Date.now() + 3600000), httpOnly: true })
   res.redirect('../../') // redirect home
 })
 
