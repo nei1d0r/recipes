@@ -1,24 +1,20 @@
 window.onload = async () => {
-    // Get all "navbar-burger" elements
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
     // Check if there are any navbar burgers
     if ($navbarBurgers.length > 0) {
-        // Add a click event on each of them
         $navbarBurgers.forEach(el => {
             el.addEventListener('click', () => {
+                const target = el.dataset.target
+                const $target = document.getElementById(target)
 
-                // Get the target from the "data-target" attribute
-                const target = el.dataset.target;
-                const $target = document.getElementById(target);
-
-                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-                el.classList.toggle('is-active');
-                $target.classList.toggle('is-active');
+                el.classList.toggle('is-active')
+                $target.classList.toggle('is-active')
             });
         });
     }
 
+    // CLIENT SIDE PASSWORD MATCH VALIDATION
     if (!!document.getElementById('password2')) {
         document.addEventListener('keyup', (e) => {
             if (document.getElementById('password').value ==
@@ -75,7 +71,7 @@ window.onload = async () => {
                 let labelDiv = document.getElementById('foodLabels')
                 labelDiv.setAttribute('class', 'labelDiv container-fluid has-text-centered')
 
-                // TODO - overwrites the existing form when image is changed
+                // overwrites the existing form when image is changed
                 while (labelDiv.firstChild) {
                     labelDiv.removeChild(labelDiv.firstChild);
                 }
@@ -139,6 +135,7 @@ window.onload = async () => {
                 dateInput.setAttribute('type', 'date')
                 dateInput.setAttribute('id', 'expiryDate')
                 dateInput.setAttribute('name', 'expiryDate')
+                dateInput.setAttribute('required', 'required')
 
                 expiryDiv.appendChild(dateLabel)
                 expiryDiv.appendChild(dateInput)
@@ -157,6 +154,7 @@ window.onload = async () => {
                 QuantityInput.setAttribute('class', 'input is-small')
                 QuantityInput.setAttribute('id', 'quantity')
                 QuantityInput.setAttribute('name', 'quantity')
+                QuantityInput.setAttribute('required', 'required')
                 // SET MIN MAX VALUES
 
                 QuantityDiv.appendChild(QuantityLabel)
@@ -175,6 +173,7 @@ window.onload = async () => {
                 storageList.setAttribute('class', 'input is-small')
                 storageList.setAttribute('name', 'location')
                 storageList.setAttribute('list', 'location')
+                storageList.setAttribute('required', 'required')
 
                 const dataList = document.createElement('datalist')
                 dataList.setAttribute('id', 'location')
